@@ -1,0 +1,117 @@
+{{!
+    This file is part of Moodle - https://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
+}}
+{{!
+    @template block_workloadradar/radar_full
+
+    Full-page radar: large mode hero, full lookahead heatmap, grouped buckets,
+    preference controls.
+}}
+<div class="wlradar wlradar--full wlradar--mode-{{mode.key}}" data-region="radar-root">
+
+    <section class="wlradar__hero">
+        <div class="wlradar__hero-emoji" aria-hidden="true">{{mode.emoji}}</div>
+        <div class="wlradar__hero-text">
+            <h2 class="wlradar__hero-title">{{mode.label}}</h2>
+            <p class="wlradar__hero-sub">{{mode.sub}}</p>
+        </div>
+        <div class="wlradar__hero-count">
+            <span class="wlradar__hero-num">{{totalitems}}</span>
+            <span class="wlradar__hero-noun">{{#str}} items_in_window, block_workloadradar {{/str}}</span>
+        </div>
+    </section>
+
+    <section class="wlradar__heatmap" aria-label="{{#str}} heatmap_alt, block_workloadradar {{/str}}">
+        <h3 class="wlradar__h">{{#str}} heatmap_title, block_workloadradar {{/str}}</h3>
+        <div class="wlradar__strip wlradar__strip--full">
+            {{#heatmap}}
+                <div class="wlradar__cell wlradar__cell--i{{intensity}}
+                            {{#collision}}wlradar__cell--collision{{/collision}}
+                            {{#istoday}}wlradar__cell--today{{/istoday}}
+                            {{#isweekend}}wlradar__cell--weekend{{/isweekend}}"
+                     title="{{datestr}}: {{count}}"
+                     data-count="{{count}}">
+                    <span class="wlradar__cell-day">{{daylabel}}</span>
+                    <span class="wlradar__cell-num">{{daynum}}</span>
+                    {{#count}}<span class="wlradar__cell-dot" aria-hidden="true">{{count}}</span>{{/count}}
+                </div>
+            {{/heatmap}}
+        </div>
+        <ul class="wlradar__legend" aria-hidden="true">
+            <li><span class="wlradar__sw wlradar__sw--i0"></span> 0</li>
+            <li><span class="wlradar__sw wlradar__sw--i1"></span> light</li>
+            <li><span class="wlradar__sw wlradar__sw--i2"></span> medium</li>
+            <li><span class="wlradar__sw wlradar__sw--i3"></span> heavy</li>
+            <li><span class="wlradar__sw wlradar__sw--i4"></span> 🔥 collision</li>
+        </ul>
+    </section>
+
+    <form class="wlradar__prefs" data-region="radar-prefs" aria-label="{{#str}} prefs_title, block_workloadradar {{/str}}">
+        <label class="wlradar__pref">
+            <span class="wlradar__pref-label">{{#str}} pref_lookahead, block_workloadradar {{/str}}</span>
+            <input type="number" min="7" max="90" name="lookaheaddays" value="{{prefs.lookaheaddays}}">
+        </label>
+        <label class="wlradar__pref">
+            <span class="wlradar__pref-label">{{#str}} pref_threshold, block_workloadradar {{/str}}</span>
+            <input type="number" min="2" max="20" name="threshold" value="{{prefs.threshold}}">
+        </label>
+        <label class="wlradar__pref wlradar__pref--check">
+            <input type="checkbox" name="hidecompleted" {{#prefs.hidecompleted}}checked{{/prefs.hidecompleted}}>
+            <span>{{#str}} pref_hidecompleted, block_workloadradar {{/str}}</span>
+        </label>
+    </form>
+
+    {{^hasitems}}
+        <p class="wlradar__empty wlradar__empty--big">
+            <span aria-hidden="true">🌿</span>
+            {{#str}} empty_easymode, block_workloadradar {{/str}}
+        </p>
+    {{/hasitems}}
+
+    {{#hasitems}}
+        <div class="wlradar__buckets">
+            {{#buckets}}
+                <section class="wlradar__bucket {{#collision}}wlradar__bucket--collision{{/collision}}" data-bucket="{{key}}">
+                    <header class="wlradar__bucket-head">
+                        <h3 class="wlradar__bucket-title">
+                            {{label}}
+                            {{#collision}}<span class="wlradar__bucket-flame" aria-hidden="true">🔥</span>{{/collision}}
+                        </h3>
+                        <span class="wlradar__bucket-count">{{count}}</span>
+                    </header>
+                    {{#hasitems}}
+                        <ul class="wlradar__list wlradar__list--bucket">
+                            {{#items}}
+                                <li class="wlradar__item wlradar__item--{{urgency}} {{#completed}}wlradar__item--done{{/completed}}">
+                                    <a class="wlradar__item-link" href="{{url}}">
+                                        <span class="wlradar__chip wlradar__chip--{{urgency}}">{{countdown}}</span>
+                                        <span class="wlradar__item-body">
+                                            <span class="wlradar__item-name">{{name}}</span>
+                                            <span class="wlradar__item-meta">{{duedate}} · {{coursename}}</span>
+                                        </span>
+                                    </a>
+                                </li>
+                            {{/items}}
+                        </ul>
+                    {{/hasitems}}
+                    {{^hasitems}}
+                        <p class="wlradar__bucket-empty">{{#str}} bucketempty, block_workloadradar {{/str}}</p>
+                    {{/hasitems}}
+                </section>
+            {{/buckets}}
+        </div>
+    {{/hasitems}}
+</div>
