@@ -1,0 +1,11 @@
+# Note: amd/build/ IS committed (Moodle convention so installs don't need grunt).
+# Re-build with `npx grunt amd --root=blocks/workloadradar` after editing amd/src.
+
+# IDE / editor noise.
+.idea/
+.vscode/
+*.swp
+.DS_Store
+
+# PHPUnit local artefacts.
+.phpunit.result.cache
