@@ -25,8 +25,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'block_workloadradar';
-$plugin->version   = 2026052900;
-$plugin->release   = '1.0.0';
+$plugin->version   = 2026070500;
+$plugin->release   = '1.0.1';
 $plugin->requires  = 2022041900; // Moodle 4.0.
 $plugin->maturity  = MATURITY_ALPHA;
 $plugin->supported = [400, 502]; // Moodle 4.0 - 5.2.

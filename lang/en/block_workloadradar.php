@@ -59,7 +59,15 @@ $string['countdown_days'] = '{$a}d';
 // Heatmap strip.
 $string['heatmap_title'] = 'Workload heatmap';
 $string['heatmap_alt'] = 'Heatmap of upcoming deadlines per day';
+$string['heatmap_legend_light'] = 'light';
+$string['heatmap_legend_medium'] = 'medium';
+$string['heatmap_legend_heavy'] = 'heavy';
+$string['heatmap_legend_collision'] = 'collision';
 $string['items_in_window'] = 'items ahead';
+
+// Date format for the heatmap day-strip weekday abbreviation. Passed to userdate(),
+// which localises the weekday name; translators may adjust the format per language.
+$string['strftimedayabbr'] = '%a';
 $string['empty_easymode'] = 'You\'re clear. Nothing due in the window.';
 $string['more'] = 'more';
 

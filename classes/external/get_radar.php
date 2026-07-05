@@ -100,7 +100,7 @@ class get_radar extends external_api {
                 'intensity' => (int)$cell->intensity,
                 'collision' => (bool)$cell->collision,
                 'istoday' => (bool)$cell->istoday,
-                'daylabel' => (string)$cell->daylabel,
+                'daylabel' => userdate($cell->timestamp, get_string('strftimedayabbr', 'block_workloadradar')),
                 'daynum' => (int)$cell->daynum,
             ];
         }

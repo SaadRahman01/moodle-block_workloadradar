@@ -141,8 +141,7 @@ class scorer {
                 'intensity' => self::intensity_bucket($count, $threshold),
                 'collision' => $count >= $threshold,
                 'istoday' => $i === 0,
-                'dow' => (int)date('N', $ts), // 1..7.
-                'daylabel' => date('D', $ts), // Mon, Tue.
+                'dow' => (int)date('N', $ts), // 1..7 (locale-independent; weekday name is localised in the output layer).
                 'daynum' => (int)date('j', $ts),
             ];
         }

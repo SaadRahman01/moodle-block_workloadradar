@@ -168,7 +168,7 @@ class radar implements renderable, templatable {
                 'collision' => $cell->collision,
                 'istoday' => $cell->istoday,
                 'isweekend' => $cell->dow >= 6,
-                'daylabel' => $cell->daylabel,
+                'daylabel' => userdate($cell->timestamp, get_string('strftimedayabbr', 'block_workloadradar')),
                 'daynum' => $cell->daynum,
                 'datestr' => userdate($cell->timestamp, get_string('strftimedaydate', 'langconfig')),
             ];
