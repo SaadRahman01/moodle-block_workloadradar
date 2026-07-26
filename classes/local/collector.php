@@ -18,6 +18,8 @@ namespace block_workloadradar\local;
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once(__DIR__ . '/../../../../calendar/lib.php');
+
 /**
  * Collects upcoming action events for a user across all active enrolments.
  *
